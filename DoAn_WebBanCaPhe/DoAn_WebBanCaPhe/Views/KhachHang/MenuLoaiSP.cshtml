@@ -1,0 +1,11 @@
+﻿@using DoAn_WebBanCaPhe.Models;
+@model List<LOAIMONNUOC>
+
+@foreach (var item in Model)
+{
+    <a class="nav-link" id="v-pills-1-tab" data-toggle="pill" href="/KhachHang/HTSP_TheoLoai/@item.MALOAI" role="tab" aria-controls="v-pills-1" aria-selected="false">@item.TENLOAI</a>
+
+    @*<li class="u-nav-item">
+        <a class="u-black u-button-style u-nav-link" href="/KhachHang/HTSP_TheoLoai/@item.MALOAI">@item.TENLOAI</a>
+    </li>*@
+}

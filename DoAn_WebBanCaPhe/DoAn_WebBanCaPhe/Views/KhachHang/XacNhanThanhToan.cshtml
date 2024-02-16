@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "XacNhanThanhToan";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+
+    var nfi = new System.Globalization.NumberFormatInfo { NumberGroupSeparator = "." };
+
+    GioHang1 gio = (GioHang1)Session["gh"];
+
+    KHACHHANG kh = ViewBag.kh;
+}
+
+@using DoAn_WebBanCaPhe.Models;
+@model KHACHHANG
+
+<head>
+    <title>Coffee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/icomoon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+
+<body>
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <h1>ORDER SUCCESS</h1>
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th width="100">&nbsp;</th>
+                                    <th width="100">Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in gio.dssp)
+                            {
+                                <tbody>
+                                    <tr class="text-center" data-id="@item.maSP">
+
+                                        <td class="image-prod"><div class="img" style="background-image:url(/HinhAnh/@item.anhBia);"></div></td>
+
+                                        <td class="product-name">
+                                            <h3>@item.tenSP</h3>
+                                        </td>
+
+                                        <td class="price">@item.donGia.ToString("#,##", nfi) VND</td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="@item.soLuong" readonly>
+                                            </div>
+                                        </td>
+
+                                        <td class="total">@item.thanhTien.ToString("#,##", nfi) VND</td>
+                                    </tr>
+
+                                </tbody>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-end">
+                <div class="col col-lg-4 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-5">
+                        <h3>
+                            My Info
+                        </h3>
+
+                        <br />
+                        <hr />
+                        <p class="d-flex text">
+                            <span>@kh.TENKH</span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="margin-left:0px;"><span class="icon icon-phone"></span>@kh.SDT</span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="margin-left:0px;"><span class="icon icon-map-marker"></span>@kh.DIACHI</span>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Totals</h3>
+                        <p class="d-flex total-price" style="font-size:15px;">
+                            @{
+                                if (gio == null)
+                                {
+                                    <span>0 VND</span>
+                                }
+                                else
+                                {
+                                    <span>@gio.TongTien().ToString("#,##", nfi) VND</span>
+                                }
+                            }
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+            <h2 class="h4"><a href="/KhachHang/SanPham">Back To Menu</a></h2>
+            @{
+                gio.XoaAll();
+            }
+        </div>
+        
+    </section>
+</body>
+
+
+

@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+
+    var nfi = new System.Globalization.NumberFormatInfo { NumberGroupSeparator = "." };
+
+    KHACHHANG kh = ViewBag.kh;
+}
+
+@using DoAn_WebBanCaPhe.Models;
+@model List<Item>
+
+<head>
+    <title>Coffee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/icomoon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+
+<body>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;</th>
+                                    <th width="100">&nbsp;</th>
+                                    <th width="100">Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr class="text-center" data-id="@item.maSP">
+                                        <td class="product-remove"><a href="/KhachHang/Xoa/@item.maSP"><span class="icon-close"></span></a></td>
+
+                                        <td class="image-prod"><div class="img" style="background-image:url(/HinhAnh/@item.anhBia);"></div></td>
+
+                                        <td class="product-name">
+                                            <h3>@item.tenSP</h3>
+                                        </td>
+
+                                        <td class="price">@item.donGia.ToString("#,##", nfi) VND</td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-btn mr-2">
+                                                    <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                                        <i class="icon-minus"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="@item.soLuong" min="1" max="100" readonly>
+                                                <span class="input-group-btn ml-2">
+                                                    <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                                        <i class="icon-plus"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td class="total">@item.thanhTien.ToString("#,##", nfi) VND</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            }
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @{GioHang1 gio = Session["gh"] as GioHang1;}
+            <div class="row justify-content-end">
+                <div class="col col-lg-4 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-5">
+                        <h3>My Info 
+                            
+                            @*<button class="btn btn-primary btn-outline-primary" style="width:30px; height:20px; margin-left:50%; margin-top:-45px;">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>*@
+                           
+                        </h3>
+                        <a href="/KhachHang/KhachHang" class="btn btn-primary btn-outline-primary" style="width:30px; height:30px; margin-left:40%; margin-top:-35px;"
+                           ><i class="fas fa-pencil-alt"></i></a>
+                        
+                        <br />
+                        <hr />
+                        <p class="d-flex text">
+                            <span>@kh.TENKH</span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="margin-left:0px;"><span class="icon icon-phone"></span>@kh.SDT</span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="margin-left:0px;"><span class="icon icon-map-marker"></span>@kh.DIACHI</span>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Totals</h3>
+                        <p class="d-flex total-price" style="font-size:15px;">
+                            @{
+                                if (gio == null)
+                                {
+                                    <span>0 VND</span>
+                                }
+                                else
+                                {
+                                    <span>@gio.TongTien().ToString("#,##", nfi) VND</span>
+                                }
+                            }
+                        </p>
+                        
+                    </div>
+                    <p class="text-center"><a href="/KhachHang/XacNhanThanhToan" class="btn btn-primary py-3 px-4" style="font-size:18px;">Confirm</a></p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</body>
+
+@if (TempData["LoginMessage"] == "1")
+{
+    <script>
+        alert("Shopping cart is empty!");
+    </script>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function validateNumber(input) {
+        input.value = input.value.replace(/\D/g, "");
+        var error = document.getElementById("error-msg");
+        if (input.value.length !== 10) {
+            error.style.display = "block";
+        } else {
+            error.style.display = "none";
+        }
+    }
+
+    function updateTotal(maSP, newQuantity) {
+        //debugger;
+        $.ajax({
+            url: '/KhachHang/CapNhatSL',
+            type: 'POST',
+            data: { maSP: maSP, soLuong: newQuantity },
+            success: function (response) {
+                if (response.success) {
+                    console.log("Giỏ hàng đã được cập nhật.");
+
+                    window.location.href = '/KhachHang/Cart';
+                    
+                } else {
+                    console.log("Có lỗi khi cập nhật giỏ hàng.");
+                }
+            },
+            error: function () {
+                console.log("Lỗi khi gửi yêu cầu lên máy chủ.");
+            }
+        });
+    }
+
+    //$(document).ready(function () {
+    //    $('.quantity-control').click(function (e) {
+    //        var maSP = parseInt($(this).data('id'));
+    //        var action = $(this).data('action');
+    //        var quantityField = $(this).closest('.text-center').find('.input-number');
+    //        var newQuantity = parseInt(quantityField.val()) || 0;
+
+    //        if (action === 'increase') {
+    //            newQuantity++;
+    //        } else if (action === 'decrease' && newQuantity > 1) {
+    //            newQuantity--;
+    //        }
+
+    //        quantityField.val(newQuantity);
+
+    //        // Xây dựng URL dựa trên action và productId
+    //        var url = '/KhachHang/CapNhatSoLuong?maSP=' + maSP + + '&soLuong=' + newQuantity + '&action=' + action;
+
+    //        // Chuyển hướng trình duyệt đến URL mới
+    //        window.location.href = url;
+    //    });
+    //});
+
+    $(document).ready(function () {
+        $('.quantity-right-plus, .quantity-left-minus').click(function (e) {
+            var maSP = parseInt($(this).closest('.text-center').data('id'));
+            var quantityField = $(this).closest('.text-center').find('.input-number');
+            var newQuantity = parseInt(quantityField.val()) || 0;
+
+            if ($(this).hasClass('quantity-right-plus')) {
+                newQuantity++;
+            } else if ($(this).hasClass('quantity-left-minus') && newQuantity > 1) {
+                newQuantity--;
+            }
+
+            quantityField.val(newQuantity);
+            // Gọi hàm cập nhật số lượng sau khi thay đổi số lượng
+            //updateTotal(maSP, newQuantity);
+
+            // Xây dựng URL dựa trên action và productId
+            var url = '/KhachHang/CapNhatSL?maSP=' + maSP + '&sl=' + newQuantity;
+
+            // Chuyển hướng trình duyệt đến URL mới
+            window.location.href = url;
+        });
+
+        // Di chuyển modal ra khỏi cart-wrap và thêm vào cuối body
+        $('#updateModal').appendTo('body');
+
+        // Thêm sự kiện click cho nút chỉnh sửa
+        $('.btn-outline-primary').click(function () {
+            console.log("Save button clicked");
+            // Hiển thị modal
+            $('#updateModal').modal('show');
+        });
+    });
+</script>

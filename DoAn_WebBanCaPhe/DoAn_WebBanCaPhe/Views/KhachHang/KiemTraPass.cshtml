@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "KiemTraPass";
+    Layout = "~/Views/Shared/_LayoutKhachHang.cshtml";
+}
+
+@using DoAn_WebBanCaPhe.Models;
+@model KHACHHANG
+
+<head>
+    <title>Coffee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/icomoon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 ftco-animate billing-form ftco-bg-dark p-3 p-md-5" style="margin-left:200px;">
+                    <form action="/KhachHang/KiemTraPass" method="post" class="">
+                        <h3 class="mb-4 billing-heading text-center">Update Password</h3>
+                        <div class="row align-items-end">
+                            <input type="hidden" name="username" value="@Model.TENDANGNHAP" placeholder="" required="" />
+                            <div class="u-form-group u-form-group-3" style="margin-left: 28%; margin-top: 10px; width: 300px; ">
+                                <label for="text-cca6" class="u-label">Password (*)</label>
+                                <input type="password" placeholder="Enter your Password" id="text-cca6" name="password" class="form-control" required="">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="u-align-center u-form-group u-form-submit" style="margin-left: 42%;">
+                            @*<a href="#" class="btn btn-primary py-3 px-4">Sign in</a>*@
+                            <input type="submit" value="Submit" class="u-form-control-hidden btn btn-primary py-3 px-4">
+                        </div>
+
+                    </form><!-- END -->
+                    
+                </div> <!-- .col-md-8 -->
+            </div>
+        </div>
+    </section>
+</body>
+
+@if (TempData["LoginMessage"] != null)
+{
+    <script>
+        alert("Invalid password !");
+    </script>
+}
+
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.easing.1.3.js"></script>
+<script src="~/js/jquery.waypoints.min.js"></script>
+<script src="~/js/jquery.stellar.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/jquery.animateNumber.min.js"></script>
+<script src="~/js/bootstrap-datepicker.js"></script>
+<script src="~/js/jquery.timepicker.min.js"></script>
+<script src="~/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="~/js/google-map.js"></script>
+<script src="~/js/main.js"></script>
+
+
+<script>
+    function validateNumber(input) {
+        input.value = input.value.replace(/\D/g, "");
+        var error = document.getElementById("error-phone");
+        if (input.value.length !== 10) {
+            error.style.display = "block";
+        } else {
+            error.style.display = "none";
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById("password");
+        var confirmPassword = document.getElementById("confirmPassword");
+        var error = document.getElementById("error-msg");
+
+        if (password.value !== confirmPassword.value) {
+            //error.innerHTML = "Passwords do not match";
+            error.style.display = "block";
+        } else {
+            //error.innerHTML = "";
+            error.style.display = "none";
+        }
+    }
+
+</script>
